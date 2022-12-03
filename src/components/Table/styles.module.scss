@@ -1,0 +1,25 @@
+.wrapper {
+  @apply w-full shadow rounded-lg border-b border-gray overflow-hidden;
+
+  .table {
+    @apply min-w-full divide-y divide-gray;
+
+    thead {
+      @apply bg-gray bg-opacity-50;
+
+      tr {
+        th {
+          @apply uppercase text-left px-6 py-3;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          @apply text-left px-6 py-3 whitespace-nowrap;
+        }
+      }
+    }
+  }
+}
