@@ -1,16 +1,16 @@
+import AppLayout from 'layout/AppLayout';
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import Table from 'components/Table';
-import Button from 'components/Button';
+import AppRoutes from 'routes';
 
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Table />
-      <Button />
-    </div>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
 
