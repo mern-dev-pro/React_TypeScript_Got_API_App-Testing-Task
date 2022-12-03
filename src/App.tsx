@@ -1,4 +1,3 @@
-import AppLayout from 'layout/AppLayout';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
