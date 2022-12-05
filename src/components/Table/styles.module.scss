@@ -43,7 +43,7 @@
     @apply flex items-center gap-5;
 
     button {
-      @apply border rounded-sm px-10 py-1 border-gray;
+      @apply border rounded-sm px-10 py-1 border-gray disabled:text-gray;
     }
   }
 }

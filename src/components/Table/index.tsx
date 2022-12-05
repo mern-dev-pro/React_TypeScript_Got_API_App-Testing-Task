@@ -12,6 +12,7 @@ type TableProps = {
 };
 
 const Table: React.FC<TableProps> = ({ data, limits = 10, currentPage = 1, setLimits, setCurrentPage }) => {
+  const total = parseInt(process.env.REACT_APP_TOTAL_CHARACTER_NUM ?? '0');
   /*
    * Handle Limit Item Number Per Page
    */
@@ -22,25 +23,16 @@ const Table: React.FC<TableProps> = ({ data, limits = 10, currentPage = 1, setLi
    * Handle Current Page Number
    */
   const handleCurrentPage = (mode: string) => {
-    const total = parseInt(process.env.REACT_APP_TOTAL_CHARACTER_NUM ?? '0');
     if (setCurrentPage) {
       switch (mode) {
         case 'FIRST':
           setCurrentPage(1);
           break;
         case 'PREV':
-          if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-          } else {
-            setCurrentPage(1);
-          }
+          setCurrentPage(currentPage - 1);
           break;
         case 'NEXT':
-          if (currentPage < Math.ceil(total / limits)) {
-            setCurrentPage(currentPage + 1);
-          } else {
-            setCurrentPage(Math.ceil(total / limits));
-          }
+          setCurrentPage(currentPage + 1);
           break;
         case 'LAST':
           setCurrentPage(Math.ceil(total / limits));
@@ -93,14 +85,20 @@ const Table: React.FC<TableProps> = ({ data, limits = 10, currentPage = 1, setLi
       {!!setLimits && !!setCurrentPage && (
         <div className={styles.pagination}>
           <select className={styles.select} onChange={handleLimitPerPage}>
-            <option value={10}>10</option>
-            <option value={25}>25</option>
-            <option value={50}>50</option>
+            {[10, 25, 50].map(item => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
           </select>
           <div className={styles.buttonGroup}>
             <button onClick={() => handleCurrentPage('FIRST')}>First</button>
-            <button onClick={() => handleCurrentPage('PREV')}>Prev</button>
-            <button onClick={() => handleCurrentPage('NEXT')}>Next</button>
+            <button onClick={() => handleCurrentPage('PREV')} disabled={currentPage < 2}>
+              Prev
+            </button>
+            <button onClick={() => handleCurrentPage('NEXT')} disabled={currentPage === Math.ceil(total / limits)}>
+              Next
+            </button>
             <button onClick={() => handleCurrentPage('LAST')}>Last</button>
           </div>
         </div>
