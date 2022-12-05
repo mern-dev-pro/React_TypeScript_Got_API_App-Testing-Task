@@ -1,0 +1,23 @@
+.wrapper {
+  @apply py-10;
+
+  .back {
+    @apply font-bold text-blue;
+  }
+
+  .heading {
+    @apply text-center font-extraBold text-30 tablet:text-45 mb-20;
+  }
+
+  .list {
+    @apply mt-25 flex items-start max-w-lg justify-between mx-auto;
+
+    .key {
+      @apply font-bold;
+    }
+
+    .value {
+      @apply text-end;
+    }
+  }
+}
