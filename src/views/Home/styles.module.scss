@@ -4,4 +4,8 @@
   .heading {
     @apply text-center font-extraBold text-30 tablet:text-45 mb-20;
   }
+
+  .filter {
+    @apply flex items-center gap-5 pb-10;
+  }
 }

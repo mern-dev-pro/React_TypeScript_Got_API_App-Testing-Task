@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 
+import Select from 'components/Select';
 import Table from 'components/Table';
+import TextInput from 'components/Input';
 import { fetchCharacterDataFromApi } from 'utils/api';
 
 import styles from './styles.module.scss';
 
+type CharacterType = {
+  [key: string]: any;
+};
+
 const Home = () => {
-  const [characterData, setCharacterData] = useState([]);
+  const [characterData, setCharacterData] = useState<CharacterType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [limits, setLimits] = useState(10);
+  const [cultureFilterReference, setCultureFilterReference] = useState('');
+  const [genderFilterReference, setGenderFilterReference] = useState('Any');
+  console.log('cultureFilterReference: ', cultureFilterReference, genderFilterReference);
 
   /* Fetch data from api
    *  Endpoint https://anapioficeandfire.com/api/characters
@@ -53,11 +62,33 @@ const Home = () => {
     fetchData();
   }, [limits, currentPage]);
 
+  /*
+   *  Handle Culture Filter Input Box
+   */
+  const handleCultureFilterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCultureFilterReference(e.target.value);
+  };
+
+  /*
+   *  Handle Gender Filter Select Option
+   */
+  const handleGenderSelector = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setGenderFilterReference(e.target.value);
+  };
+
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.heading}>Characters</h2>
+      <div className={styles.filter}>
+        <TextInput placeholder="Culture" onChange={handleCultureFilterInput} />
+        <Select options={['Any', 'Male', 'Female']} setValue={handleGenderSelector} />
+      </div>
       <Table
-        data={characterData}
+        data={characterData.filter(
+          item =>
+            (genderFilterReference !== 'Any' ? item?.gender === genderFilterReference : true) &&
+            (cultureFilterReference !== '' ? item?.culture?.includes(cultureFilterReference) : true)
+        )}
         currentPage={currentPage}
         limits={limits}
         setLimits={setLimits}
