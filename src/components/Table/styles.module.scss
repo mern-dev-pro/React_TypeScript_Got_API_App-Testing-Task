@@ -23,3 +23,19 @@
     }
   }
 }
+
+.pagination {
+  @apply p-20 flex items-center justify-between;
+
+  .select {
+    @apply border border-gray rounded-sm px-10 py-1 focus:ring-0 focus:outline-none;
+  }
+
+  .buttonGroup {
+    @apply flex items-center gap-5;
+
+    button {
+      @apply border rounded-sm px-10 py-1 border-gray;
+    }
+  }
+}
