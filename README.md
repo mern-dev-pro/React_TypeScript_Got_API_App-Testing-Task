@@ -7,7 +7,7 @@
   yarn build<br/>
 
 
-- env <br/><br/>
+- env <br/>
   REACT_APP_API_BASE_URL="https://anapioficeandfire.com/api" <br/>
   REACT_APP_TOTAL_CHARACTER_NUM=2134
   
