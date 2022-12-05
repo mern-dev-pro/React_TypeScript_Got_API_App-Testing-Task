@@ -3,6 +3,7 @@ import React from 'react';
 import { useRoutes } from 'react-router-dom';
 
 import Home from 'views/Home';
+import House from 'views/House';
 
 const AppRoutes = () => {
   const routes = [
@@ -13,6 +14,10 @@ const AppRoutes = () => {
         {
           path: '/',
           element: <Home />,
+        },
+        {
+          path: '/home/:id',
+          element: <House />,
         },
       ],
     },
