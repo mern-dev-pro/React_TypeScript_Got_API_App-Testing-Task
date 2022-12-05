@@ -1,5 +1,5 @@
 .wrapper {
-  @apply w-full shadow rounded-lg border-b border-gray overflow-hidden;
+  @apply w-full shadow rounded-lg border-b border-gray overflow-auto;
 
   .table {
     @apply min-w-full divide-y divide-gray;
@@ -25,7 +25,7 @@
 }
 
 .pagination {
-  @apply p-20 flex items-center justify-between;
+  @apply px-0 tablet:px-20 mt-10 flex items-center gap-5 justify-between;
 
   .select {
     @apply border border-gray rounded-sm px-10 py-1 focus:ring-0 focus:outline-none;

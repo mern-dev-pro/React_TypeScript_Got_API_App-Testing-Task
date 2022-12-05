@@ -4,12 +4,48 @@ import styles from './styles.module.scss';
 
 type TableProps = {
   data: { [key: string]: any }[];
+  limits: number;
+  currentPage: number;
   setLimits: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Table: React.FC<TableProps> = ({ data, setLimits }) => {
-  const setLimitPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+const Table: React.FC<TableProps> = ({ data, limits = 10, currentPage = 1, setLimits, setCurrentPage }) => {
+  /*
+   * Handle Limit Item Number Per Page
+   */
+  const handleLimitPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLimits(parseInt(e.target.value) ?? 10);
+  };
+  /*
+   * Handle Current Page Number
+   */
+  const handleCurrentPage = (mode: string) => {
+    const total = parseInt(process.env.REACT_APP_TOTAL_CHARACTER_NUM ?? '0');
+    switch (mode) {
+      case 'FIRST':
+        setCurrentPage(1);
+        break;
+      case 'PREV':
+        if (currentPage > 1) {
+          setCurrentPage(currentPage - 1);
+        } else {
+          setCurrentPage(1);
+        }
+        break;
+      case 'NEXT':
+        if (currentPage < Math.ceil(total / limits)) {
+          setCurrentPage(currentPage + 1);
+        } else {
+          setCurrentPage(Math.ceil(total / limits));
+        }
+        break;
+      case 'LAST':
+        setCurrentPage(Math.ceil(total / limits));
+        break;
+      default:
+        break;
+    }
   };
   return (
     <>
@@ -36,7 +72,7 @@ const Table: React.FC<TableProps> = ({ data, setLimits }) => {
                             ))}
                           </ul>
                         ) : (
-                          'Unknown'
+                          'No allegiances'
                         )
                       ) : (
                         item[key]
@@ -50,16 +86,16 @@ const Table: React.FC<TableProps> = ({ data, setLimits }) => {
         )}
       </div>
       <div className={styles.pagination}>
-        <select className={styles.select} onChange={setLimitPerPage}>
+        <select className={styles.select} onChange={handleLimitPerPage}>
           <option value={10}>10</option>
           <option value={25}>25</option>
           <option value={50}>50</option>
         </select>
         <div className={styles.buttonGroup}>
-          <button>First</button>
-          <button>Prev</button>
-          <button>Next</button>
-          <button>Last</button>
+          <button onClick={() => handleCurrentPage('FIRST')}>First</button>
+          <button onClick={() => handleCurrentPage('PREV')}>Prev</button>
+          <button onClick={() => handleCurrentPage('NEXT')}>Next</button>
+          <button onClick={() => handleCurrentPage('LAST')}>Last</button>
         </div>
       </div>
     </>
