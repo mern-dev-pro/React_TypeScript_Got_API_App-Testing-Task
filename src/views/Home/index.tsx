@@ -17,7 +17,6 @@ const Home = () => {
   const [limits, setLimits] = useState(10);
   const [cultureFilterReference, setCultureFilterReference] = useState('');
   const [genderFilterReference, setGenderFilterReference] = useState('Any');
-  console.log('cultureFilterReference: ', cultureFilterReference, genderFilterReference);
 
   /* Fetch data from api
    *  Endpoint https://anapioficeandfire.com/api/characters

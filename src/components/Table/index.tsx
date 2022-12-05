@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Button from 'components/Button';
 import Select from 'components/Select';
+import Button from 'components/Button';
 
 import styles from './styles.module.scss';
 

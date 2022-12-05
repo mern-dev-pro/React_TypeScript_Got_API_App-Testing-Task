@@ -55,7 +55,7 @@ const House = () => {
                 {key === 'Titles' || key === 'Seats' ? (
                   <ul>
                     {houseData[key]?.map((item: string) => (
-                      <li>{item}</li>
+                      <li key={item}>{item}</li>
                     ))}
                   </ul>
                 ) : (
