@@ -1,3 +1,7 @@
 .wrapper {
   @apply py-10;
+
+  .heading {
+    @apply text-center font-extraBold text-30 tablet:text-45 mb-20;
+  }
 }

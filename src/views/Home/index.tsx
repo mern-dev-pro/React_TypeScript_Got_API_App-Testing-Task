@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Table from 'components/Table';
-import { fetchDataFromApi } from 'utils/api';
+import { fetchCharacterDataFromApi } from 'utils/api';
 
 import styles from './styles.module.scss';
 
@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await fetchDataFromApi(currentPage, limits);
+        const { data } = await fetchCharacterDataFromApi(currentPage, limits);
         setCharacterData(
           data.map((item: { [key: string]: any }) => {
             const name = item.name + item.aliases.length > 0 && item.name !== '' ? ', ' : '' + item.aliases.join(', ');
@@ -44,7 +44,7 @@ const Home = () => {
               alive: alive,
               gender: item?.gender,
               culture: item?.culture ? item?.culture : 'Unknown',
-              allegiances: item.aliases,
+              allegiances: item.allegiances,
             };
           })
         );
@@ -55,7 +55,14 @@ const Home = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Table data={characterData} setLimits={setLimits} />
+      <h2 className={styles.heading}>Characters</h2>
+      <Table
+        data={characterData}
+        currentPage={currentPage}
+        limits={limits}
+        setLimits={setLimits}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
