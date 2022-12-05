@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Button from 'components/Button';
+import Select from 'components/Select';
+
 import styles from './styles.module.scss';
 
 type TableProps = {
@@ -84,22 +87,21 @@ const Table: React.FC<TableProps> = ({ data, limits = 10, currentPage = 1, setLi
       </div>
       {!!setLimits && !!setCurrentPage && (
         <div className={styles.pagination}>
-          <select className={styles.select} onChange={handleLimitPerPage}>
-            {[10, 25, 50].map(item => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
+          <Select options={[10, 25, 50]} setValue={handleLimitPerPage} />
           <div className={styles.buttonGroup}>
-            <button onClick={() => handleCurrentPage('FIRST')}>First</button>
-            <button onClick={() => handleCurrentPage('PREV')} disabled={currentPage < 2}>
-              Prev
-            </button>
-            <button onClick={() => handleCurrentPage('NEXT')} disabled={currentPage === Math.ceil(total / limits)}>
-              Next
-            </button>
-            <button onClick={() => handleCurrentPage('LAST')}>Last</button>
+            {[
+              { label: 'First', disabled: false },
+              { label: 'Prev', disabled: currentPage < 2 },
+              { label: 'Next', disabled: currentPage === Math.ceil(total / limits) },
+              { label: 'Last', disabled: false },
+            ].map((item, index) => (
+              <Button
+                key={index}
+                label={item.label}
+                onClick={() => handleCurrentPage(item.label.toUpperCase())}
+                disabled={item.disabled}
+              />
+            ))}
           </div>
         </div>
       )}
